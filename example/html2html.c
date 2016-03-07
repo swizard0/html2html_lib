@@ -5,16 +5,17 @@
 int main()
 {
     char *html = NULL;
-    size_t html_size = 0;
+    size_t html_buffer_size = 0;
 
-    ssize_t res = getdelim(&html, &html_size, 0, stdin);
-    if (res < 0)
+    ssize_t html_size = getdelim(&html, &html_buffer_size, 0, stdin);
+    if (html_size < 0)
     {
-        fprintf(stderr, "Something went wrong when reading stdin (res = %d)\n", (int)res);
+        fprintf(stderr, "Something went wrong when reading stdin (html_size = %d)\n", (int)html_size);
         return 1;
     }
 
-    enum parse_status status = parse_document(html, html_size, 1);
+    enum parse_status status = parse_document(html, (size_t)html_size, 1);
+    free(html);
     if (status != RES_OK)
     {
         fprintf(stderr, "Something went wrong when parsing document (status = %d)\n", (int)status);
