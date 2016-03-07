@@ -1,0 +1,11 @@
+[package]
+name = "html2html_lib"
+version = "0.1.0"
+authors = ["Alexey Voznyuk <me@swizard.info>"]
+
+[lib]
+crate-type = ["staticlib"]
+
+[dependencies]
+libc = "*"
+html5ever = { git = "https://github.com/servo/html5ever.git" }
